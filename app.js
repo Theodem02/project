@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 
 app.post('/', upload.single('fichier'), (req, res) => {
     const uploadedFilePath = path.join(__dirname, 'uploads', req.file.originalname);
-
+    console.log(uploadedFilePath);
     fs.readFile(uploadedFilePath, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
