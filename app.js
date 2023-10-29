@@ -6,6 +6,8 @@ const fs = require('fs');
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'views')));
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, 'uploads'));
@@ -48,6 +50,10 @@ app.post('/', upload.single('fichier'), (req, res) => {
             `);
         }
     });
+});
+app.post('/shutdown', (req, res) => {
+    res.send('Server is going down...');
+    process.exit(0);
 });
 
 app.listen(3000, () => {
