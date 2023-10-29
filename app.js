@@ -46,6 +46,10 @@ app.post('/uploads', upload.single('fichier'), async (req, res) => {
                     filename: req.file.originalname
                 });
                 console.log(response.data);
+
+                // Add a line to print a success message
+                console.log('File successfully uploaded to the second container.');
+
                 res.send(`
                     <div>
                         <h2>File uploaded successfully</h2>
@@ -60,6 +64,7 @@ app.post('/uploads', upload.single('fichier'), async (req, res) => {
         }
     });
 });
+
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
