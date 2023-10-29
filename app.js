@@ -53,14 +53,18 @@ app.post('/', upload.single('fichier'), (req, res) => {
         }
     });
 });
+
 app.post('/shutdown', (req, res) => {
     console.log('Server shutting down...');
-    server.close(() => {
-        console.log('Server is closed.');
-        res.send('Server is closed.');
-    });
+    res.send('Server is going down...');
+
+    // Gracefully exit the Node.js process after a short delay (e.g., 2 seconds)
+    setTimeout(() => {
+        process.exit(0);
+    }, 2000);
 });
 
 server = app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
+

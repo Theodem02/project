@@ -4,6 +4,8 @@ shutdownButton.addEventListener('click', () => {
         .then(response => response.text())
         .then(data => {
             console.log(data);
+            // Reload the page after the server is closed
+            location.reload();
         })
         .catch(error => {
             console.error(error);
