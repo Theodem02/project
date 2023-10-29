@@ -6,6 +6,8 @@ const fs = require('fs');
 
 const app = express();
 
+let server;
+
 app.use(express.static(path.join(__dirname, 'views')));
 
 const storage = multer.diskStorage({
@@ -52,10 +54,13 @@ app.post('/', upload.single('fichier'), (req, res) => {
     });
 });
 app.post('/shutdown', (req, res) => {
-    res.send('Server is going down...');
-    process.exit(0);
+    console.log('Server shutting down...');
+    server.close(() => {
+        console.log('Server is closed.');
+        res.send('Server is closed.');
+    });
 });
 
-app.listen(3000, () => {
+server = app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
