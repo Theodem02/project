@@ -3,8 +3,9 @@ const ejs = require('ejs');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-
 const app = express();
+const { exec } = require('child_process');
+
 
 let server;
 
@@ -45,10 +46,10 @@ app.post('/', upload.single('fichier'), (req, res) => {
             // Display the text content in a div.
             res.send(`
                 <div>
-                    <h2>File uploaded successfully</h2>
+                    <h2>Fichier uploader avec succes</h2>
                     <pre>${data}</pre>
                 </div>
-                <p><a href="/">Go back to the original page</a></p>
+                <p><a href="/">Revenir a la page d'accueil</a></p>
             `);
         }
     });
@@ -66,5 +67,14 @@ app.post('/shutdown', (req, res) => {
 
 server = app.listen(3000, () => {
     console.log('Server started on port 3000');
+    console.log('SimpleHTTPServer started on port 8080');
+    exec('python -m SimpleHTTPServer 8080', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error starting SimpleHTTPServer: ${error}`);
+            return;
+        }
+    });
 });
+
+
 
